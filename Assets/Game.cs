@@ -110,7 +110,6 @@ public class Game : MonoBehaviour {
         //time.AddSeconds(elapsedTime);
         elapsedTime += Time.deltaTime;
         GameTime = StartTime + (int)(elapsedTime / 60 * MinuteScale);
-        Debug.Log(TimeString);
     }
 
     public string TimeString
