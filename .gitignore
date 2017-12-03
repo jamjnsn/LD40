@@ -1,0 +1,36 @@
+# .gitignore
+
+# Unity
+/[Ll]ibrary/*
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/Logs/
+/[Bb]uilds/
+/etc/
+/Assets/AssetStoreTools*
+sysinfo.txt
+*.pidb.meta
+ 
+# VS/Rider/MD/Consulo
+.vs/*
+.vscode/*
+ExportedObj/
+.consulo/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+ 
+# Builds
+*.apk
+*.unitypackage
+*.app
+*.exe
