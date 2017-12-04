@@ -9,12 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82ff3ccc3025f0a44980e2806e9d457d, type: 3}
-  m_Name: Desk
+  m_Name: Sink
   m_EditorClassIdentifier: 
-  MaxHealth: 1
+  Replaces: {fileID: 0}
+  MaxHealth: 0
   Price: 0
   HappinessPerDay: 0
   DecayPerDay: 0
   RepairCostPercentage: 0
   DamagePerDay: 0
+  Sprite: {fileID: 0}
+  Description: 
   IsCool: 0

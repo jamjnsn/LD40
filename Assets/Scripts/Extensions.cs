@@ -60,4 +60,14 @@ public static class Extensions
     {
         return "#" + ColorUtility.ToHtmlStringRGBA(color);
     }
+
+    public static void CreateAction(this EventTrigger trigger,
+        EventTriggerType triggerType,
+        UnityEngine.Events.UnityAction<BaseEventData> action)
+    {
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = triggerType;
+        entry.callback.AddListener(action);
+        trigger.triggers.Add(entry);
+    }
 }

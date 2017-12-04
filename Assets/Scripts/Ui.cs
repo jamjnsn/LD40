@@ -9,17 +9,48 @@ public class Ui : MonoBehaviour {
     public Text HappinessPerDay;
     public Text Day;
     public Text Money;
+    public Text Dialogue;
+    public RectTransform DialogueTransform;
+    public WebBrowser WebBrowser;
 
     public string DayFormat;
     public string HappinessPerDayFormat;
 
+    public float DialogueDisplayTime;
+
 	// Use this for initialization
 	void Start ()
     {
+        HideDialogue();
+    }
+    
+    float dialogueTimeRemaining;
+    public void ShowDialogue(string dialogue)
+    {
+        Dialogue.transform.parent.gameObject.SetActive(true);
+        Dialogue.text = dialogue;
+        dialogueTimeRemaining = DialogueDisplayTime / Game.TimeScale;
+    }
+
+    public void HideDialogue()
+    {
+        Dialogue.transform.parent.gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        DialogueTransform.anchoredPosition = Game.Player.transform.position;
+
+        if(dialogueTimeRemaining > 0)
+        {
+            dialogueTimeRemaining -= Time.deltaTime;
+
+            if (dialogueTimeRemaining <= 0)
+            {
+                HideDialogue();
+            }
+        }
+
         if(Day == null)
         {
             // Weird ass Unity bug leaves all these null on first frame

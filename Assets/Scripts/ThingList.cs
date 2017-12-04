@@ -7,12 +7,12 @@ using System.Linq;
 public class ThingList : List<Thing> {
     public Thing Find(Item item)
     {
-        return this.FirstOrDefault(thing => thing.IsItem(item));
+        return this.FirstOrDefault(thing => thing.Item == item);
     }
 
     public Thing FindByName(string name)
     {
-        return this.FirstOrDefault(thing => thing.Name == name);
+        return this.FirstOrDefault(thing => thing.Item != null && thing.Item.name == name);
     }
 
     public new void Add(Thing thing)

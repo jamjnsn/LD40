@@ -3,61 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Thing : MonoBehaviour {
     [SerializeField]
     [OnValueChanged("UpdateItem")]
-    Item item;
+    public Item Item;
 
     public bool IsItem(Item item)
     {
-        return this.item == item;
-    }
-    
-    public string Name
-    {
-        get
-        {
-            return item.name;
-        }
-    }
-
-    public bool IsCool
-    {
-        get
-        {
-            return item.IsCool;
-        }
+        return this.Item == item;
     }
 
     [OnValueChanged("UpdateHealth")]
     public int Health;
     
-    [OnValueChanged("UpdateAcquired")]
     [SerializeField]
+    [OnValueChanged("UpdateAcquired")]
     bool acquired;
-
-    bool isAcquired;
     public bool Acquired
     {
         get
         {
-            return isAcquired;
+            return acquired;
         }
 
         set
         {
-            isAcquired = value;
+            acquired = value;
             gameObject.SetActive(value);
         }
     }
 
-    public float Decay;
+    public float Novelty;
 
     public int HappinessPerDay
     {
         get
         {
-            return Mathf.RoundToInt((float)item.HappinessPerDay * Decay * HealthPercentage);
+            return Mathf.RoundToInt((float)Item.HappinessPerDay * Novelty * HealthPercentage);
         }
     }
 
@@ -65,7 +48,7 @@ public class Thing : MonoBehaviour {
     {
         get
         {
-            return Health / item.MaxHealth;
+            return Item.MaxHealth == 0 ? 1 : Health / Item.MaxHealth;
         }
     }
 
@@ -80,13 +63,15 @@ public class Thing : MonoBehaviour {
 
     public void Repair()
     {
-        Health = item.MaxHealth;
+        Health = Item.MaxHealth;
     }
 
 	// Use this for initialization
 	void Start () {
         Acquired = acquired;
-	}
+        UpdateItem();
+        Novelty = 1;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -95,26 +80,30 @@ public class Thing : MonoBehaviour {
 
     void UpdateHealth()
     {
-        Health = Mathf.Clamp(Health, 0, item.MaxHealth);
-    }
-
-    void UpdateAcquired()
-    {
-        if (acquired)
-        {
-            Game.Player.Acquire(this);
-        }
-        else
-        {
-            Game.Player.Unacquire(this);
-        }
+        Health = Mathf.Clamp(Health, 0, Item.MaxHealth);
     }
 
     void UpdateItem()
     {
-        if(item != null)
+        if(Item != null)
         {
-            this.gameObject.name = item.name;
+            this.gameObject.name = Item.name;
+            Health = Item.MaxHealth;
+        }
+    }
+
+    void UpdateAcquired()
+    {
+        if (Application.isPlaying)
+        {
+            if (Acquired)
+            {
+                Game.Player.Acquire(this);
+            }
+            else
+            {
+                Game.Player.Unacquire(this);
+            }
         }
     }
 }
