@@ -11,9 +11,5 @@ public class Audio : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Music.gameObject.activeInHierarchy)
-        {
-            Music.pitch = Time.timeScale;
-        }
 	}
 }

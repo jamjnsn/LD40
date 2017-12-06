@@ -47,9 +47,14 @@ public class Game : MonoBehaviour
     [SerializeField]
     public float gameTimeScale;
 
+    public int LossHappiness;
+    public int WinHappiness;
+
     public string StartTime;
     public string FastForwardButton;
     public int DaysPerPaycheck;
+
+    SceneLoader sceneLoader;
     
     [OnValueChanged("UpdateAway")]
     [SerializeField]
@@ -97,6 +102,7 @@ public class Game : MonoBehaviour
     
     // Use this for initialization
     void Awake () {
+        sceneLoader = GetComponent<SceneLoader>();
         Instance = this;
         Time = DateTime.Parse(StartTime);
         Day = 0;
@@ -149,6 +155,14 @@ public class Game : MonoBehaviour
         }
     }
 
+    bool PayDay
+    {
+        get
+        {
+            return Day % DaysPerPaycheck == 0;
+        }
+    }
+
     /// <summary>
     /// Increase day and setup daily events.
     /// </summary>
@@ -157,13 +171,24 @@ public class Game : MonoBehaviour
         Day++;
         Player.NextDay();
 
-        // Paycheck
-        if(Day % DaysPerPaycheck == 0)
+        if (player.Happiness <= LossHappiness)
         {
-            Player.GetPaid();
+            sceneLoader.Lose();
         }
+        else if (player.Happiness >= WinHappiness)
+        {
+            sceneLoader.Win();
+        }
+        else
+        {
+            // Paycheck
+            if (PayDay)
+            {
+                Player.GetPaid();
+            }
 
-        SetUpDay();
+            SetUpDay();
+        }
     }
 
     void SetUpDay()
@@ -188,7 +213,11 @@ public class Game : MonoBehaviour
         // Walk to bathroom
         WaitForTime("8:10am", () =>
         {
-            Player.MoveTo("Toilet");
+            Player.MoveTo("Sink");
+            if(PayDay)
+            {
+                Player.Say(Player.DialogueLines.PayDay);
+            }
         });
 
         WaitForTime("8:25am", () =>
@@ -248,8 +277,12 @@ public class Game : MonoBehaviour
             {
                 // go to bed
                 Player.Sleep();
-                Player.Acquire(Things.FindByName("Bed With Player"));
             });
+        });
+
+        WaitForTime("10:04pm", () =>
+        {
+            Player.Acquire(Things.FindByName("Bed With Player"));
         });
 
         WaitForTime("10:05pm", () =>

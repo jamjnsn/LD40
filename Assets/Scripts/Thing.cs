@@ -34,13 +34,26 @@ public class Thing : MonoBehaviour {
         }
     }
 
-    public float Novelty;
+    [SerializeField]
+    float novelty;
+    public float Novelty
+    {
+        get
+        {
+            return novelty;
+        }
+
+        set
+        {
+            novelty = Mathf.Clamp(value, -1, 1);
+        }
+    }
 
     public int HappinessPerDay
     {
         get
         {
-            return Mathf.RoundToInt((float)Item.HappinessPerDay * Novelty * HealthPercentage);
+            return Mathf.RoundToInt((float)Item.HappinessPerDay * Novelty);
         }
     }
 

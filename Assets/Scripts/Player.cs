@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : SerializedMonoBehaviour {
-    public enum DialogueLines { BedSoon, WakingUp, GettingHome, BuyingThing }
+    public enum DialogueLines { BedSoon, WakingUp, GettingHome, BuyingThing, PayDay }
     public enum PlayerDirections { Forward = 0, Left = -1, Right = 1 }
 
     public int HappinessPerDay
@@ -108,6 +108,7 @@ public class Player : SerializedMonoBehaviour {
 
             if(thing.Item != null && thing.Item.IsCool)
             {
+                Say(DialogueLines.BuyingThing);
                 AmbientHappinessIncreasePerDay--;
             }
 

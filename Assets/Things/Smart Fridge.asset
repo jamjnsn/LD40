@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Replaces: {fileID: 11400000, guid: 6be7e32d36d6ce14489bb9690400177d, type: 2}
   MaxHealth: 14
-  Price: 1000
+  Price: 1200
   HappinessPerDay: 12
-  NoveltyLossPerDay: 0.3
+  NoveltyLossPerDay: 0.2
   RepairCostPercentage: 0.25
   DamagePerDay: 1
   Sprite: {fileID: 21300024, guid: fb4c7870f29b28044bc68c7c2107657d, type: 3}

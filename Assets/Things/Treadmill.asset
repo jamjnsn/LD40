@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxHealth: 14
   Price: 1500
   HappinessPerDay: 16
-  NoveltyLossPerDay: 0.3
+  NoveltyLossPerDay: 0.2
   RepairCostPercentage: 0.25
   DamagePerDay: 1
   Sprite: {fileID: 21300026, guid: fb4c7870f29b28044bc68c7c2107657d, type: 3}

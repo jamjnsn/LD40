@@ -12,7 +12,7 @@ public class Sun : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
         light.color = Gradient.Evaluate((float)Game.Time.Hour / 24f);
 	}
 }
